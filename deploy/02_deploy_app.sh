@@ -23,7 +23,9 @@ REPO_URL="https://github.com/AbdulGani-SPRK/python-gis.git"  # GitHub repo URL
 BRANCH="main"                       # Branch to deploy
 
 DB_USER="postgres"
-DB_PASSWORD="your_db_password_here" # <- Set your actual PostgreSQL password
+DB_PASSWORD=""                       # Leave empty if no password is set on postgres user.
+                                     # Run: sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'yourpass';"
+                                     # then set DB_PASSWORD="yourpass" here.
 DB_NAME="realestate_db"
 DB_HOST="localhost"
 DB_PORT="5432"
@@ -89,6 +91,13 @@ echo "  ✓ Dependencies installed."
 echo ""
 echo "[3/6] Writing production .env file..."
 
+# Build DATABASE_URL — omit password if not set
+if [ -n "$DB_PASSWORD" ]; then
+    DATABASE_URL="postgresql+psycopg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+else
+    DATABASE_URL="postgresql+psycopg://${DB_USER}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+fi
+
 cat > "$APP_DIR/.env" <<EOF
 APP_NAME="Real Estate Property Consultant GIS Service"
 APP_VERSION=0.1.0
@@ -98,7 +107,7 @@ LOG_LEVEL=INFO
 API_V1_PREFIX=/api/v1
 
 # PostgreSQL + PostGIS (native on VPS)
-DATABASE_URL=postgresql+psycopg://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+DATABASE_URL=${DATABASE_URL}
 
 SQL_ECHO=false
 DB_POOL_SIZE=5
