@@ -19,7 +19,7 @@ set -euo pipefail
 # EDIT THESE BEFORE RUNNING
 # =============================================================================
 APP_DIR="/opt/real-estate-ai/python-gis"
-REPO_URL="https://github.com/AbdulGani-SPRK/real-estate-ai.git"  # GitHub repo URL
+REPO_URL="https://github.com/AbdulGani-SPRK/python-gis.git"  # GitHub repo URL
 BRANCH="main"                       # Branch to deploy
 
 DB_USER="postgres"

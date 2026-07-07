@@ -80,7 +80,7 @@ This installs Python 3.12, GDAL, gcc, libpq, and creates the `realestate` system
 ```bash
 # /opt/real-estate-ai already exists as a parent folder on your VPS.
 # Clone the FastAPI service into the python-gis subdirectory:
-git clone https://github.com/AbdulGani-SPRK/real-estate-ai.git /opt/real-estate-ai/python-gis
+git clone https://github.com/AbdulGani-SPRK/python-gis.git /opt/real-estate-ai/python-gis
 
 # Run system setup
 chmod +x /opt/real-estate-ai/python-gis/deploy/01_vps_setup.sh
@@ -96,7 +96,7 @@ nano /opt/real-estate-ai/python-gis/deploy/02_deploy_app.sh
 Set these values at the top of the script:
 
 ```bash
-REPO_URL="https://github.com/AbdulGani-SPRK/real-estate-ai.git"
+REPO_URL="https://github.com/AbdulGani-SPRK/python-gis.git"
 BRANCH="main"
 
 DB_PASSWORD="your_actual_postgres_password"
