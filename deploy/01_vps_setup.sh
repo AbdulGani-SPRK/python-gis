@@ -8,7 +8,7 @@
 #   - Python 3.12 + venv + pip
 #   - GDAL system libraries (required by geopandas / GeoAlchemy2)
 #   - Build tools (gcc, g++, libpq-dev)
-#   - Creates the 'realestate' system user and /opt/real-estate-ai directory
+#   - Creates the 'realestate' system user and /opt/real-estate-ai/python-gis directory
 # =============================================================================
 
 set -euo pipefail

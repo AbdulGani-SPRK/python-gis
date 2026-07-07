@@ -18,8 +18,8 @@ set -euo pipefail
 # =============================================================================
 # EDIT THESE BEFORE RUNNING
 # =============================================================================
-APP_DIR="/opt/real-estate-ai"
-REPO_URL="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git"  # <- Replace with your actual GitHub repo URL
+APP_DIR="/opt/real-estate-ai/python-gis"
+REPO_URL="https://github.com/AbdulGani-SPRK/real-estate-ai.git"  # GitHub repo URL
 BRANCH="main"                       # Branch to deploy
 
 DB_USER="postgres"
@@ -61,6 +61,9 @@ if [ -d "$APP_DIR/.git" ]; then
     git -C "$APP_DIR" clean -fd
 else
     echo "  -> Cloning $REPO_URL into $APP_DIR..."
+    # /opt/real-estate-ai already exists on the VPS as a parent folder.
+    # We clone into the python-gis subdirectory.
+    mkdir -p /opt/real-estate-ai
     git clone --branch "$BRANCH" "$REPO_URL" "$APP_DIR"
 fi
 

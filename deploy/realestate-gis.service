@@ -8,14 +8,14 @@ Wants=postgresql.service
 Type=simple
 User=realestate
 Group=realestate
-WorkingDirectory=/opt/real-estate-ai
+WorkingDirectory=/opt/real-estate-ai/python-gis
 
 # Load environment variables from the production .env file
-EnvironmentFile=/opt/real-estate-ai/.env
+EnvironmentFile=/opt/real-estate-ai/python-gis/.env
 
 # Start uvicorn with 2 workers
 # Use --workers 1 if the VPS has only 1 vCPU
-ExecStart=/opt/real-estate-ai/.venv/bin/uvicorn app.main:app \
+ExecStart=/opt/real-estate-ai/python-gis/.venv/bin/uvicorn app.main:app \
     --host 0.0.0.0 \
     --port 8000 \
     --workers 2 \
@@ -37,7 +37,7 @@ StartLimitBurst=3
 # Security hardening
 NoNewPrivileges=true
 ProtectSystem=strict
-ReadWritePaths=/opt/real-estate-ai
+ReadWritePaths=/opt/real-estate-ai/python-gis
 PrivateTmp=true
 
 # Output logs to journald

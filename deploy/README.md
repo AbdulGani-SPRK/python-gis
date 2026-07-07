@@ -78,27 +78,25 @@ ssh root@<vps-ip>
 This installs Python 3.12, GDAL, gcc, libpq, and creates the `realestate` system user.
 
 ```bash
-# Install git if not present
-apt-get install -y git
-
-# Clone the repo into /opt/real-estate-ai
-git clone https://github.com/<YOUR_USERNAME>/real-estate-ai.git /opt/real-estate-ai
+# /opt/real-estate-ai already exists as a parent folder on your VPS.
+# Clone the FastAPI service into the python-gis subdirectory:
+git clone https://github.com/AbdulGani-SPRK/real-estate-ai.git /opt/real-estate-ai/python-gis
 
 # Run system setup
-chmod +x /opt/real-estate-ai/deploy/01_vps_setup.sh
-sudo bash /opt/real-estate-ai/deploy/01_vps_setup.sh
+chmod +x /opt/real-estate-ai/python-gis/deploy/01_vps_setup.sh
+sudo bash /opt/real-estate-ai/python-gis/deploy/01_vps_setup.sh
 ```
 
 ### Step 4 — Edit the deployment script with your credentials
 
 ```bash
-nano /opt/real-estate-ai/deploy/02_deploy_app.sh
+nano /opt/real-estate-ai/python-gis/deploy/02_deploy_app.sh
 ```
 
 Set these values at the top of the script:
 
 ```bash
-REPO_URL="https://github.com/<YOUR_USERNAME>/real-estate-ai.git"
+REPO_URL="https://github.com/AbdulGani-SPRK/real-estate-ai.git"
 BRANCH="main"
 
 DB_PASSWORD="your_actual_postgres_password"
@@ -110,8 +108,8 @@ Save and exit: `Ctrl+O` → `Enter` → `Ctrl+X`
 ### Step 5 — Run the deployment script
 
 ```bash
-chmod +x /opt/real-estate-ai/deploy/02_deploy_app.sh
-sudo bash /opt/real-estate-ai/deploy/02_deploy_app.sh
+chmod +x /opt/real-estate-ai/python-gis/deploy/02_deploy_app.sh
+sudo bash /opt/real-estate-ai/python-gis/deploy/02_deploy_app.sh
 ```
 
 This script will:
@@ -163,7 +161,7 @@ git push origin main
 
 **VPS:**
 ```bash
-sudo bash /opt/real-estate-ai/deploy/02_deploy_app.sh
+sudo bash /opt/real-estate-ai/python-gis/deploy/02_deploy_app.sh
 ```
 
 The script does `git pull` + reinstalls deps + restarts the service. It is **idempotent** — safe to re-run at any time.
