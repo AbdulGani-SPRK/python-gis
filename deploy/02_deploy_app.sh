@@ -127,16 +127,14 @@ chown "$APP_USER:$APP_USER" "$APP_DIR/.env"
 chmod 600 "$APP_DIR/.env"
 echo "  ✓ .env written (permissions: 600)."
 
-# ── 4. Run Alembic migrations ─────────────────────────────────────────────────
+# ── 4. Skipping Alembic migrations ───────────────────────────────────────────
+# Schema is already in place via pg dump restore. No migrations needed.
 echo ""
-echo "[4/6] Running Alembic database migrations..."
-cd "$APP_DIR"
-sudo -u "$APP_USER" "$VENV/bin/alembic" upgrade head
-echo "  ✓ Migrations applied."
+echo "[4/5] Skipping Alembic migrations (schema loaded from pg dump)."
 
 # ── 5. Install / reload systemd service ──────────────────────────────────────
 echo ""
-echo "[5/6] Installing systemd service '$SERVICE_NAME'..."
+echo "[5/5] Installing systemd service '$SERVICE_NAME'..."
 
 # Copy the service file
 cp "$APP_DIR/deploy/realestate-gis.service" "/etc/systemd/system/$SERVICE_NAME.service"
