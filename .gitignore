@@ -1,0 +1,21 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Data / logs (not for version control)
+propertydata.xlsx
+*.log
+pytest-cache-files-*/
+subworkflow_ids.json
+webhook_subworkflow_ids.json
+

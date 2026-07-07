@@ -1,0 +1,49 @@
+[Unit]
+Description=Property Consultant GIS Service (FastAPI / uvicorn)
+Documentation=https://github.com/youruser/python-gis
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=realestate
+Group=realestate
+WorkingDirectory=/opt/real-estate-ai
+
+# Load environment variables from the production .env file
+EnvironmentFile=/opt/real-estate-ai/.env
+
+# Start uvicorn with 2 workers
+# Use --workers 1 if the VPS has only 1 vCPU
+ExecStart=/opt/real-estate-ai/.venv/bin/uvicorn app.main:app \
+    --host 0.0.0.0 \
+    --port 8000 \
+    --workers 2 \
+    --log-level info \
+    --access-log
+
+# Graceful shutdown
+ExecStop=/bin/kill -s TERM $MAINPID
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Restart policy
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/real-estate-ai
+PrivateTmp=true
+
+# Output logs to journald
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=realestate-gis
+
+[Install]
+WantedBy=multi-user.target

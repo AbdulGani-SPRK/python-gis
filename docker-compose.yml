@@ -1,0 +1,13 @@
+services:
+  fastapi-gis-service:
+    build: .
+    container_name: realestate-fastapi-gis-service
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://postgres:password@host.docker.internal:5432/realestate_db}
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+

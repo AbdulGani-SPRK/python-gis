@@ -1,0 +1,11 @@
+# Normalize line endings: all text files use LF in the repo
+* text=auto eol=lf
+
+# Force LF for shell scripts (CRLF would break bash on Linux)
+*.sh text eol=lf
+
+# Force LF for systemd service files
+*.service text eol=lf
+
+# Windows-only scripts can use CRLF
+*.ps1 text eol=crlf
